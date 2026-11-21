@@ -40,7 +40,10 @@ public class PacksScreen extends Screen {
         ResourcePackManager rpm = client.getResourcePackManager();
         rpm.scanPacks();
         List<ResourcePackProfile> list = new ArrayList<>();
-        for (ResourcePackProfile p : rpm.getProfiles()) if (!p.isAlwaysEnabled()) list.add(p);
+     for (ResourcePackProfile p : rpm.getProfiles()) {
+    String pid = p.getId();
+    if (!pid.equals("vanilla") && !pid.startsWith("fabric")) list.add(p);
+}
         list.sort(Comparator.comparing(p -> p.getDisplayName().getString().toLowerCase()));
         int per = Math.max(3, (height - 130) / 22);
         int pages = Math.max(1, (list.size() + per - 1) / per);
